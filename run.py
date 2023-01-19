@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import random
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -13,7 +14,14 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman-python')
 
 leaderboard = SHEET.worksheet('leaderboard')
-
 data = leaderboard.get_all_values()
 
-print(data)
+words_bank = SHEET.worksheet('words')
+WORDS = words_bank.get_all_values()
+
+def main():
+
+    print('Game started')
+
+
+main()
