@@ -27,14 +27,29 @@ def get_word():
     """
     random_index = random.randint(0,len(WORDS) - 1)
 
-    return WORDS[random_index]
+    return WORDS[random_index][0]
 
+def print_dashed_word(word):
+    """
+    Given a word, print a dashed representation of it.
+    Exemple: For a word X with 4, the expected return is a
+    dashed_representation of this word with 4 dashes.
+
+    Returns: str - The word to "dashed"-print.
+    """
+    dashed_representation = ''
+
+    print(word)
+    for letter in word:
+        dashed_representation += ' _'
+    print(dashed_representation)
+    print('\n')
 
 def main():
 
-    print('Game started')
+    print('Game started... \n')
     word = get_word()
-    print(word)
+    print_dashed_word(word)
 
 
 main()
