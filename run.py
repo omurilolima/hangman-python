@@ -19,9 +19,22 @@ data = leaderboard.get_all_values()
 words_bank = SHEET.worksheet('words')
 WORDS = words_bank.get_all_values()
 
+def get_word():
+    """
+    Randomly select a word from the word bank and return it.
+    
+    Returns: str - The said word.
+    """
+    random_index = random.randint(0,len(WORDS) - 1)
+
+    return WORDS[random_index]
+
+
 def main():
 
     print('Game started')
+    word = get_word()
+    print(word)
 
 
 main()
