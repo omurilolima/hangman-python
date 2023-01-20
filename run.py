@@ -54,6 +54,7 @@ def main():
     word = get_word()
     correctly_guessed_letters = ['a']
     print_dashed_word(word, correctly_guessed_letters)
-
+    guess = input('Guess a letter: \n')
+    print(f'Your guess is: {guess}')
 
 main()
