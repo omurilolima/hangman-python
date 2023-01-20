@@ -20,6 +20,11 @@ words_bank = SHEET.worksheet('words')
 WORDS = words_bank.get_all_values()
 
 
+# Global variables
+ALL_GUESSED_LETTERS = []
+CORRECTLY_GUESSED_LETTERS = []
+
+
 def get_word():
     """
     Randomly select a word from the word bank and return it.
@@ -82,11 +87,25 @@ def validate_data(guess):
             raise ValueError(
                 f'Enter a single roman letter. You provided {len(guess)}'
                 )
-    except ValueError as e:
-        print(f'{e}, please try again. \n')
+        elif guess in ALL_GUESSED_LETTERS:
+            raise ValueError(
+                f'{guess} was already guessed. Try another letter.'
+                )
+    except ValueError as error:
+        print(f'{error}, please try again. \n')
         return False
 
     return True
+
+
+# def is_correct(guess, word):
+#     """
+#     Check whether the letter is in the word.
+#     If is correct, append the letter in the
+#     CORRECTLY_GUESSED_LETTERS list.
+#     """
+#     if guess in word:
+#         CORRECTLY_GUESSED_LETTERS.append(guess)
 
 
 def main():
@@ -95,10 +114,13 @@ def main():
     """
     print('Game started... \n')
     word = get_word()
-    correctly_guessed_letters = []
-    print_dashed_word(word, correctly_guessed_letters)
+    print_dashed_word(word, CORRECTLY_GUESSED_LETTERS)
     guess = get_user_guess()
-    print(f'your guess was: {guess}')
+    ALL_GUESSED_LETTERS.append(guess)
+    print(word)
+    print(guess)
+    print(ALL_GUESSED_LETTERS)
 
 
 main()
+
