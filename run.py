@@ -64,6 +64,7 @@ def get_user_guess():
         user_guess = input('Guess a letter: ')
 
         if validate_data(user_guess):
+            ALL_GUESSED_LETTERS.append(user_guess)
             break
     return user_guess
 
@@ -98,14 +99,14 @@ def validate_data(guess):
     return True
 
 
-# def is_correct(guess, word):
-#     """
-#     Check whether the letter is in the word.
-#     If is correct, append the letter in the
-#     CORRECTLY_GUESSED_LETTERS list.
-#     """
-#     if guess in word:
-#         CORRECTLY_GUESSED_LETTERS.append(guess)
+def check_answer(guess, word):
+    """
+    Check whether the letter is in the word.
+    If is correct, append the letter in the
+    CORRECTLY_GUESSED_LETTERS list.
+    """
+    if guess in word:
+        CORRECTLY_GUESSED_LETTERS.append(guess)
 
 
 def main():
@@ -114,13 +115,10 @@ def main():
     """
     print('Game started... \n')
     word = get_word()
-    print_dashed_word(word, CORRECTLY_GUESSED_LETTERS)
-    guess = get_user_guess()
-    ALL_GUESSED_LETTERS.append(guess)
-    print(word)
-    print(guess)
-    print(ALL_GUESSED_LETTERS)
+    while True:
+        print_dashed_word(word, CORRECTLY_GUESSED_LETTERS)
+        guess = get_user_guess()
+        check_answer(guess, word)
 
 
 main()
-
