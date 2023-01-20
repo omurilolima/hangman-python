@@ -1,4 +1,5 @@
 import random
+import os
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -107,7 +108,22 @@ def check_answer(guess, word):
  
     if guess in word:
         CORRECTLY_GUESSED_LETTERS.append(guess)
-    
+
+
+def clear_screen():
+    """
+    Clear the screen to achieve a cleaner look
+    """
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def guessed_letters():
+ 
+    separator = ", "
+    list = separator.join(ALL_GUESSED_LETTERS)
+
+    return list
+
 
 def main():
     """
@@ -124,9 +140,12 @@ def main():
 
     while attempts > 0:
         print(word)
-
         guess = get_user_guess()
         check_answer(guess, word)
+        clear_screen()
+
+        print(f'Guessed letters: {guessed_letters()}')
+        
         dashed_word = dashe_word(word, CORRECTLY_GUESSED_LETTERS)
         print(f'{dashed_word}\n')
         if dashed_word.count("_") == 0:
