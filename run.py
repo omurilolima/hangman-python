@@ -1,6 +1,6 @@
+import random
 import gspread
 from google.oauth2.service_account import Credentials
-import random
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -19,15 +19,17 @@ data = leaderboard.get_all_values()
 words_bank = SHEET.worksheet('words')
 WORDS = words_bank.get_all_values()
 
+
 def get_word():
     """
     Randomly select a word from the word bank and return it.
-    
+
     Returns: str - The said word.
     """
-    random_index = random.randint(0,len(WORDS) - 1)
+    random_index = random.randint(0, len(WORDS) - 1)
 
     return WORDS[random_index][0]
+
 
 def print_dashed_word(word, letters_to_reveal):
     """
@@ -48,26 +50,55 @@ def print_dashed_word(word, letters_to_reveal):
     print(dashed_representation)
     print('\n')
 
+
 def get_user_guess():
     """
-    Get user guess letter from the user's 
+    Get user guess letter from the user's
     """
     while True:
         user_guess = input('Guess a letter: ')
-        print(f'Your guess is: {user_guess}')
 
-    #     if validate_data(guess):
-    #         print('Data is valid!')
-    #         break
-    # return guess
+        if validate_data(user_guess):
+            break
+    return user_guess
+
+
+def validate_data(guess):
+    """
+    Inside the try, converts all the guess into string.
+    Raises ValueError if cannot be converterd into string.
+
+    Input should be a single roman letter. If not, print an error message
+    and give them another chance to enter a letter.
+    """
+    is_string = guess.isalpha()
+
+    try:
+        if not is_string:
+            raise ValueError(
+                f'Enter a single roman letter. You entered: {guess}'
+            )
+        elif len(guess) != 1:
+            raise ValueError(
+                f'Enter a single roman letter. You provided {len(guess)}'
+                )
+    except ValueError as e:
+        print(f'{e}, please try again. \n')
+        return False
+
+    return True
+
 
 def main():
-
+    """
+    Run all program functions
+    """
     print('Game started... \n')
     word = get_word()
     correctly_guessed_letters = []
     print_dashed_word(word, correctly_guessed_letters)
     guess = get_user_guess()
-    
+    print(f'your guess was: {guess}')
+
 
 main()
