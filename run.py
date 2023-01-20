@@ -45,7 +45,6 @@ def print_dashed_word(word, letters_to_reveal):
     Returns: str - The word to "dashed"-print.
     """
     dashed_representation = ''
-
     for letter in word:
         if letter in letters_to_reveal:
             dashed_representation += f' {letter}'
@@ -62,11 +61,11 @@ def get_user_guess():
     """
     while True:
         user_guess = input('Guess a letter: ')
-
-        if validate_data(user_guess):
-            ALL_GUESSED_LETTERS.append(user_guess)
+        guess_lowercase = user_guess.lower()
+        if validate_data(guess_lowercase):
+            ALL_GUESSED_LETTERS.append(guess_lowercase)
             break
-    return user_guess
+    return guess_lowercase
 
 
 def validate_data(guess):
@@ -115,14 +114,16 @@ def main():
     """
     print('Game started... \n')
     word = get_word()
-    attempts = 3
+    attempts = len(word)
+    print(f'Attempts remaining: {attempts}')
     while attempts != -1:
+        print(word)
         print_dashed_word(word, CORRECTLY_GUESSED_LETTERS)
         guess = get_user_guess()
         check_answer(guess, word)
         attempts -= 1
         print(f'Attempts remaining: {attempts}')
-    
+
     print('Game over')
 
 
