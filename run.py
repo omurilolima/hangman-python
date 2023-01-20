@@ -48,13 +48,26 @@ def print_dashed_word(word, letters_to_reveal):
     print(dashed_representation)
     print('\n')
 
+def get_user_guess():
+    """
+    Get user guess letter from the user's 
+    """
+    while True:
+        user_guess = input('Guess a letter: ')
+        print(f'Your guess is: {user_guess}')
+
+    #     if validate_data(guess):
+    #         print('Data is valid!')
+    #         break
+    # return guess
+
 def main():
 
     print('Game started... \n')
     word = get_word()
-    correctly_guessed_letters = ['a']
+    correctly_guessed_letters = []
     print_dashed_word(word, correctly_guessed_letters)
-    guess = input('Guess a letter: \n')
-    print(f'Your guess is: {guess}')
+    guess = get_user_guess()
+    
 
 main()
