@@ -23,6 +23,7 @@ WORDS = words_bank.get_all_values()
 # Global variables
 ALL_GUESSED_LETTERS = []
 CORRECTLY_GUESSED_LETTERS = []
+SCORE = 1
 
 
 def get_word():
@@ -36,7 +37,7 @@ def get_word():
     return WORDS[random_index][0]
 
 
-def print_dashed_word(word, letters_to_reveal):
+def dashe_word(word, letters_to_reveal):
     """
     Given a word, print a dashed representation of it.
     Exemple: For a word X with 4, the expected return is a
@@ -50,9 +51,8 @@ def print_dashed_word(word, letters_to_reveal):
             dashed_representation += f' {letter}'
         else:
             dashed_representation += ' _'
-
-    print(dashed_representation)
-    print('\n')
+    
+    return dashed_representation
 
 
 def get_user_guess():
@@ -104,9 +104,10 @@ def check_answer(guess, word):
     If is correct, append the letter in the
     CORRECTLY_GUESSED_LETTERS list.
     """
+ 
     if guess in word:
         CORRECTLY_GUESSED_LETTERS.append(guess)
-
+    
 
 def main():
     """
@@ -114,17 +115,30 @@ def main():
     """
     print('Game started... \n')
     word = get_word()
+    SCORE = 0
     attempts = len(word)
-    print(f'Attempts remaining: {attempts}')
-    while attempts != -1:
+    print(f'Score: {SCORE} words guessed')
+    print(f'Attempts remaining: {attempts} \n')
+    dashed_word = dashe_word(word, CORRECTLY_GUESSED_LETTERS)
+    print(f'{dashed_word}\n')
+
+    while attempts > 0:
         print(word)
-        print_dashed_word(word, CORRECTLY_GUESSED_LETTERS)
+
         guess = get_user_guess()
         check_answer(guess, word)
-        attempts -= 1
-        print(f'Attempts remaining: {attempts}')
+        dashed_word = dashe_word(word, CORRECTLY_GUESSED_LETTERS)
+        print(f'{dashed_word}\n')
+        if dashed_word.count("_") == 0:
+            SCORE += 1
+            print(f'Congrats!!! Your new score is: {SCORE}')
+            break
+        else:
+            attempts -= 1
+            print(f'Attempts remaining: {attempts}')
 
-    print('Game over')
+    if attempts == 0:
+        print(f'Game over: The word was: {word}')
 
 
 main()
