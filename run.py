@@ -29,7 +29,7 @@ def get_word():
 
     return WORDS[random_index][0]
 
-def print_dashed_word(word):
+def print_dashed_word(word, letters_to_reveal):
     """
     Given a word, print a dashed representation of it.
     Exemple: For a word X with 4, the expected return is a
@@ -39,9 +39,12 @@ def print_dashed_word(word):
     """
     dashed_representation = ''
 
-    print(word)
     for letter in word:
-        dashed_representation += ' _'
+        if letter in letters_to_reveal:
+            dashed_representation += f' {letter}'
+        else:
+            dashed_representation += ' _'
+
     print(dashed_representation)
     print('\n')
 
@@ -49,7 +52,8 @@ def main():
 
     print('Game started... \n')
     word = get_word()
-    print_dashed_word(word)
+    correctly_guessed_letters = ['a']
+    print_dashed_word(word, correctly_guessed_letters)
 
 
 main()
