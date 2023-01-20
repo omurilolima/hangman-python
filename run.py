@@ -115,10 +115,15 @@ def main():
     """
     print('Game started... \n')
     word = get_word()
-    while True:
+    attempts = 3
+    while attempts != -1:
         print_dashed_word(word, CORRECTLY_GUESSED_LETTERS)
         guess = get_user_guess()
         check_answer(guess, word)
+        attempts -= 1
+        print(f'Attempts remaining: {attempts}')
+    
+    print('Game over')
 
 
 main()
