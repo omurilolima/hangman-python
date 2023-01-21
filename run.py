@@ -1,9 +1,20 @@
+"""
+Imports
+"""
+# internal libraries
 import random
 import os
 import sys
+
+# external libraries
 import gspread
 from google.oauth2.service_account import Credentials
+from colorama import Fore
 
+
+"""
+Linking a Google spreadsheet 
+"""
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -65,7 +76,7 @@ def get_user_guess():
     Get user guess letter from the user's
     """
     while True:
-        user_guess = input('Guess a letter: ').strip()
+        user_guess = input(Fore.YELLOW + 'Guess a letter: ').strip()
         guess_lowercase = user_guess.lower()
         if validate_data(guess_lowercase):
             current_state["all_guessed_letters"].append(guess_lowercase)
@@ -86,18 +97,18 @@ def validate_data(guess):
     try:
         if not is_string:
             raise ValueError(
-                f'Enter a single roman letter. You entered: {guess}'
+                Fore.RED + f'Enter a single letter. You entered: {guess}'
             )
         elif len(guess) != 1:
             raise ValueError(
-                f'Enter a single roman letter. You provided {len(guess)}'
+                Fore.RED + f'Enter a single letter. You provided {len(guess)}'
                 )
         elif guess in current_state["all_guessed_letters"]:
             raise ValueError(
-                f'{guess} was already guessed. Try another letter.'
+                Fore.RED + f'{guess} was already guessed. Try another letter.'
                 )
     except ValueError as error:
-        print(f'{error}, please try again. \n')
+        print(Fore.RED + f'{error}, please try again. \n')
         return False
 
     return True
@@ -138,10 +149,10 @@ def ask_play_again():
     If the user say yes ('Y'), call new_round.
     Else, exit the program.
     """
-    again = input('Play again? (Y for yes / Anything else for exit)\n').strip()
+    again = input('Play again? (y = Yes / Anything else = Exit)\n').strip()
     if again.lower() != 'y':
         clear_screen()
-        print('Thanks for playing!!! See you :)')
+        print(Fore.BLUE + 'Thanks for playing!!! See you :)')
         sys.exit()
     return True
 
@@ -150,29 +161,30 @@ def new_round():
     word = get_word()
     attempts = len(word) + 3
     dashed_word = dashe_word(word)
-    print(f'{dashed_word}\n')
-    print(f'Attempts remaining: {attempts} \n')
-    print(f'Score: {current_state["score"]} words guessed')
+    print(Fore.YELLOW + f'{dashed_word}\n')
+    print(Fore.WHITE + f'Attempts remaining: {attempts} \n')
+    print(Fore.WHITE + f'Score: {current_state["score"]} words guessed\n')
 
     while attempts > 0:
         # print(f'Word is: {word} (HINT JUST FOR TESTING) :)\n')
         guess = get_user_guess()
         check_answer(guess, word)
         clear_screen()
-        print(f'Guessed letters: {guessed_letters_string()}\n')
+        print(Fore.GREEN + f'Guessed letters: {guessed_letters_string()}\n')
         dashed_word = dashe_word(word)
-        print(f'{dashed_word}\n')
+        print(Fore.YELLOW + f'{dashed_word}\n')
         if dashed_word.count("_") == 0:
             current_state["score"] += 1
-            print(f'Congrats!!! Your new score is: {current_state["score"]}\n')
+            print(Fore.BLUE + f'Congrats! Score: {current_state["score"]}\n')
             break
         else:
             attempts -= 1
-            print(f'Attempts remaining: {attempts}')
+            print(Fore.WHITE + f'Attempts remaining: {attempts}\n')
+            print(f'Score: {current_state["score"]} words guessed\n')
 
     if attempts == 0:
-        print(f'Game over: The word was: {word}')
-        
+        print(Fore.RED + f'Game over: The word was: {word}\n')
+       
     return ask_play_again()
 
 
@@ -180,12 +192,13 @@ def main():
     """
     Run all program functions
     """
-    print('Welcome to the Tech Hangman Game (By Murilo Lima)\n')
-    username = input('What is your name?\n')
+    print(Fore.BLUE + 'Welcome to the Tech Hangman Game')
+    print(Fore.WHITE + 'By Murilo Lima\n')
+    username = input(Fore.YELLOW + 'What is your name?\n')
 
     while len(WORDS) > 0:
         clear_screen()
-        print(f'Hi {username}! Good luck!\n')
+        print(Fore.BLUE + f'Good luck, {username}!\n')
         play_again = new_round()
 
         if play_again:
