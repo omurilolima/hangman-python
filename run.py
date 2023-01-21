@@ -1,5 +1,6 @@
 import random
 import os
+import sys
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -64,7 +65,7 @@ def get_user_guess():
     Get user guess letter from the user's
     """
     while True:
-        user_guess = input('Guess a letter: ')
+        user_guess = input('Guess a letter: ').strip()
         guess_lowercase = user_guess.lower()
         if validate_data(guess_lowercase):
             current_state["all_guessed_letters"].append(guess_lowercase)
@@ -120,7 +121,7 @@ def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def guessed_letters():
+def guessed_letters_string():
     """
     Join each char of an array in a new string 
     separated by a comma
@@ -129,9 +130,25 @@ def guessed_letters():
     list = separator.join(current_state["all_guessed_letters"])
 
     return list
-    
 
-def play_one_round():
+
+def play_again():
+    """
+    Asks if the user want to play another round.
+    If the user say yes ('Y'), call new_round.
+    Else, exit the program.
+    """
+    again = input('Play again? (Y for yes / Anything else for exit)\n').strip()
+    if again.lower() != 'y':
+        clear_screen()
+        print('Thank you!!! See you :)')
+        sys.exit()
+        return False
+    else:
+        return True
+
+
+def new_round():
     word = get_word()
     attempts = len(word)
     print(f'Score: {current_state["score"]} words guessed')
@@ -144,19 +161,21 @@ def play_one_round():
         guess = get_user_guess()
         check_answer(guess, word)
         clear_screen()
-        print(f'Guessed letters: {guessed_letters()}')
+        print(f'Guessed letters: {guessed_letters_string()}')
         dashed_word = dashe_word(word)
         print(f'{dashed_word}\n')
         if dashed_word.count("_") == 0:
             current_state["score"] += 1
             print(f'Congrats!!! Your new score is: {current_state["score"]}')
-            break
+            if play_again():
+                break
         else:
             attempts -= 1
             print(f'Attempts remaining: {attempts}')
 
     if attempts == 0:
         print(f'Game over: The word was: {word}')
+        play_again()
         return False
     else:
         return True
@@ -169,7 +188,8 @@ def main():
     print('Game started... \n')\
 
     while len(WORDS) > 0:
-        round_successful = play_one_round()
+        clear_screen()
+        round_successful = new_round()
 
         if round_successful:
             current_state["all_guessed_letters"] = []
