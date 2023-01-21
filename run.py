@@ -1,6 +1,7 @@
 import random
 import os
 import sys
+import math
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -150,7 +151,7 @@ def play_again():
 
 def new_round():
     word = get_word()
-    attempts = len(word)
+    attempts = len(word) + 3
     print(f'Score: {current_state["score"]} words guessed')
     print(f'Attempts remaining: {attempts} \n')
     dashed_word = dashe_word(word)
