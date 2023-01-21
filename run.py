@@ -1,7 +1,6 @@
 import random
 import os
 import sys
-import math
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -57,7 +56,7 @@ def dashe_word(word):
             dashed_representation += f' {letter}'
         else:
             dashed_representation += ' _'
-    
+
     return dashed_representation
 
 
@@ -110,7 +109,7 @@ def check_answer(guess, word):
     If is correct, append the letter in the
     correctly_guessed_letters list.
     """
- 
+
     if guess in word:
         current_state["correctly_guessed_letters"].append(guess)
 
@@ -124,16 +123,16 @@ def clear_screen():
 
 def guessed_letters_string():
     """
-    Join each char of an array in a new string 
+    Join each char of an array in a new string
     separated by a comma
     """
     separator = ", "
-    list = separator.join(current_state["all_guessed_letters"])
+    letters_string = separator.join(current_state["all_guessed_letters"])
 
-    return list
+    return letters_string
 
 
-def play_again():
+def ask_play_again():
     """
     Asks if the user want to play another round.
     If the user say yes ('Y'), call new_round.
@@ -142,57 +141,54 @@ def play_again():
     again = input('Play again? (Y for yes / Anything else for exit)\n').strip()
     if again.lower() != 'y':
         clear_screen()
-        print('Thank you!!! See you :)')
+        print('Thanks for playing!!! See you :)')
         sys.exit()
-        return False
-    else:
-        return True
+    return True
 
 
 def new_round():
     word = get_word()
     attempts = len(word) + 3
-    print(f'Score: {current_state["score"]} words guessed')
-    print(f'Attempts remaining: {attempts} \n')
     dashed_word = dashe_word(word)
     print(f'{dashed_word}\n')
+    print(f'Attempts remaining: {attempts} \n')
+    print(f'Score: {current_state["score"]} words guessed')
 
     while attempts > 0:
-        print(f'Word is: {word} (HINT JUST FOR TESTING) :)\n')
+        # print(f'Word is: {word} (HINT JUST FOR TESTING) :)\n')
         guess = get_user_guess()
         check_answer(guess, word)
         clear_screen()
-        print(f'Guessed letters: {guessed_letters_string()}')
+        print(f'Guessed letters: {guessed_letters_string()}\n')
         dashed_word = dashe_word(word)
         print(f'{dashed_word}\n')
         if dashed_word.count("_") == 0:
             current_state["score"] += 1
-            print(f'Congrats!!! Your new score is: {current_state["score"]}')
-            if play_again():
-                break
+            print(f'Congrats!!! Your new score is: {current_state["score"]}\n')
+            break
         else:
             attempts -= 1
             print(f'Attempts remaining: {attempts}')
 
     if attempts == 0:
         print(f'Game over: The word was: {word}')
-        play_again()
-        return False
-    else:
-        return True
+        
+    return ask_play_again()
 
 
 def main():
     """
     Run all program functions
     """
-    print('Game started... \n')\
+    print('Welcome to the Tech Hangman Game (By Murilo Lima)\n')
+    username = input('What is your name?\n')
 
     while len(WORDS) > 0:
         clear_screen()
-        round_successful = new_round()
+        print(f'Hi {username}! Good luck!\n')
+        play_again = new_round()
 
-        if round_successful:
+        if play_again:
             current_state["all_guessed_letters"] = []
             current_state["correctly_guessed_letters"] = []
         else:
