@@ -36,8 +36,9 @@ def get_word():
     Returns: str - The said word.
     """
     random_index = random.randint(0, len(WORDS) - 1)
-
-    return WORDS[random_index][0]
+    word = WORDS[random_index][0]
+    WORDS.pop(random_index)
+    return word
 
 
 def dashe_word(word):
@@ -165,17 +166,14 @@ def main():
     """
     Run all program functions
     """
-    print('Game started... \n')
-    
-    round_count = 0
+    print('Game started... \n')\
 
-    while round_count < len(WORDS):
+    while len(WORDS) > 0:
         round_successful = play_one_round()
 
         if round_successful:
             current_state["all_guessed_letters"] = []
             current_state["correctly_guessed_letters"] = []
-            round_count += 1
         else:
             break
 
