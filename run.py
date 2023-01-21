@@ -9,7 +9,7 @@ import sys
 # external libraries
 import gspread
 from google.oauth2.service_account import Credentials
-from colorama import Fore
+from colorama import Fore, Style
 
 
 """
@@ -152,7 +152,7 @@ def ask_play_again():
     again = input('Play again? (y = Yes / Anything else = Exit)\n').strip()
     if again.lower() != 'y':
         clear_screen()
-        print(Fore.BLUE + 'Thanks for playing!!! See you :)')
+        print(Fore.CYAN + Style.BRIGHT + 'Thanks for playing!!! See you :)')
         sys.exit()
     return True
 
@@ -175,7 +175,7 @@ def new_round():
         print(Fore.YELLOW + f'{dashed_word}\n')
         if dashed_word.count("_") == 0:
             current_state["score"] += 1
-            print(Fore.BLUE + f'Congrats! Score: {current_state["score"]}\n')
+            print(Fore.GREEN + f'Congrats! Score: {current_state["score"]}\n')
             break
         else:
             attempts -= 1
@@ -192,13 +192,13 @@ def main():
     """
     Run all program functions
     """
-    print(Fore.BLUE + 'Welcome to the Tech Hangman Game')
+    print(Fore.CYAN + Style.BRIGHT + 'Welcome to the Tech Hangman Game')
     print(Fore.WHITE + 'By Murilo Lima\n')
     username = input(Fore.YELLOW + 'What is your name?\n')
 
     while len(WORDS) > 0:
         clear_screen()
-        print(Fore.BLUE + f'Good luck, {username}!\n')
+        print(Fore.CYAN + Style.BRIGHT + f'Good luck, {username}!\n')
         play_again = new_round()
 
         if play_again:
