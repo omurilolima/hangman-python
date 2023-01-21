@@ -22,9 +22,11 @@ WORDS = words_bank.get_all_values()
 
 
 # Global variables
-ALL_GUESSED_LETTERS = []
-CORRECTLY_GUESSED_LETTERS = []
-SCORE = 1
+current_state = {
+    "all_guessed_letters": [],
+    "correctly_guessed_letters": [],
+    "score": 0
+}
 
 
 def get_word():
@@ -38,7 +40,7 @@ def get_word():
     return WORDS[random_index][0]
 
 
-def dashe_word(word, letters_to_reveal):
+def dashe_word(word):
     """
     Given a word, print a dashed representation of it.
     Exemple: For a word X with 4, the expected return is a
@@ -48,7 +50,7 @@ def dashe_word(word, letters_to_reveal):
     """
     dashed_representation = ''
     for letter in word:
-        if letter in letters_to_reveal:
+        if letter in current_state["correctly_guessed_letters"]:
             dashed_representation += f' {letter}'
         else:
             dashed_representation += ' _'
@@ -64,7 +66,7 @@ def get_user_guess():
         user_guess = input('Guess a letter: ')
         guess_lowercase = user_guess.lower()
         if validate_data(guess_lowercase):
-            ALL_GUESSED_LETTERS.append(guess_lowercase)
+            current_state["all_guessed_letters"].append(guess_lowercase)
             break
     return guess_lowercase
 
@@ -88,7 +90,7 @@ def validate_data(guess):
             raise ValueError(
                 f'Enter a single roman letter. You provided {len(guess)}'
                 )
-        elif guess in ALL_GUESSED_LETTERS:
+        elif guess in current_state["all_guessed_letters"]:
             raise ValueError(
                 f'{guess} was already guessed. Try another letter.'
                 )
@@ -103,11 +105,11 @@ def check_answer(guess, word):
     """
     Check whether the letter is in the word.
     If is correct, append the letter in the
-    CORRECTLY_GUESSED_LETTERS list.
+    correctly_guessed_letters list.
     """
  
     if guess in word:
-        CORRECTLY_GUESSED_LETTERS.append(guess)
+        current_state["correctly_guessed_letters"].append(guess)
 
 
 def clear_screen():
@@ -118,39 +120,35 @@ def clear_screen():
 
 
 def guessed_letters():
- 
+    """
+    Join each char of an array in a new string 
+    separated by a comma
+    """
     separator = ", "
-    list = separator.join(ALL_GUESSED_LETTERS)
+    list = separator.join(current_state["all_guessed_letters"])
 
     return list
+    
 
-
-def main():
-    """
-    Run all program functions
-    """
-    print('Game started... \n')
+def play_one_round():
     word = get_word()
-    SCORE = 0
     attempts = len(word)
-    print(f'Score: {SCORE} words guessed')
+    print(f'Score: {current_state["score"]} words guessed')
     print(f'Attempts remaining: {attempts} \n')
-    dashed_word = dashe_word(word, CORRECTLY_GUESSED_LETTERS)
+    dashed_word = dashe_word(word)
     print(f'{dashed_word}\n')
 
     while attempts > 0:
-        print(word)
+        print(f'Word is: {word} (HINT JUST FOR TESTING) :)\n')
         guess = get_user_guess()
         check_answer(guess, word)
         clear_screen()
-
         print(f'Guessed letters: {guessed_letters()}')
-        
-        dashed_word = dashe_word(word, CORRECTLY_GUESSED_LETTERS)
+        dashed_word = dashe_word(word)
         print(f'{dashed_word}\n')
         if dashed_word.count("_") == 0:
-            SCORE += 1
-            print(f'Congrats!!! Your new score is: {SCORE}')
+            current_state["score"] += 1
+            print(f'Congrats!!! Your new score is: {current_state["score"]}')
             break
         else:
             attempts -= 1
@@ -158,6 +156,28 @@ def main():
 
     if attempts == 0:
         print(f'Game over: The word was: {word}')
+        return False
+    else:
+        return True
+
+
+def main():
+    """
+    Run all program functions
+    """
+    print('Game started... \n')
+    
+    round_count = 0
+
+    while round_count < len(WORDS):
+        round_successful = play_one_round()
+
+        if round_successful:
+            current_state["all_guessed_letters"] = []
+            current_state["correctly_guessed_letters"] = []
+            round_count += 1
+        else:
+            break
 
 
 main()
