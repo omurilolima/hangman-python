@@ -76,7 +76,7 @@ def get_user_guess():
     Get user guess letter from the user's
     """
     while True:
-        user_guess = input(Fore.YELLOW + 'Guess a letter: ').strip()
+        user_guess = input(Fore.YELLOW + 'Guess a letter: \n').strip()
         guess_lowercase = user_guess.lower()
         if validate_data(guess_lowercase):
             current_state["all_guessed_letters"].append(guess_lowercase)
@@ -184,7 +184,7 @@ def new_round():
 
     if attempts == 0:
         print(Fore.RED + f'Game over: The word was: {word}\n')
-       
+
     return ask_play_again()
 
 
@@ -205,6 +205,7 @@ def main():
             current_state["all_guessed_letters"] = []
             current_state["correctly_guessed_letters"] = []
         else:
+            print(Fore.BLUE + "Well done! You've reached the heights score.")
             break
 
 
