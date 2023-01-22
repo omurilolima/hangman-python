@@ -13,7 +13,7 @@ from colorama import Fore, Style
 
 
 """
-Linking a Google spreadsheet 
+Linking a Google spreadsheet
 """
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
