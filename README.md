@@ -47,8 +47,8 @@ If the player guesses all the correct letters they gain 1 point. After the game 
 2. Main game:
     - The screen features an array of underscores ( _ ) to let the player knows how many letters are in the word.
     - The player can enter letters until they either guess all the letters correctly or run out of attempts.
-3. Letters Guessed
-  - As the game runs, the letters that the player has already guessed will be displayed on the screen so they know which ones they haven't tried yet. If they enter a letter that they have guessed before, they will be warned of this and have the chance to try again without losing an attempt.
+3. Letters Guessed:
+    - As the game runs, the letters that the player has already guessed will be displayed on the screen so they know which ones they haven't tried yet. If they enter a letter that they have guessed before, they will be warned of this and have the chance to try again without losing an attempt.
 4. Attempts remaining:
     - The number of attempts the player has left is displayed to let them know exactly how many attempts they have remaining.
 5. Play again
@@ -63,6 +63,7 @@ If the player guesses all the correct letters they gain 1 point. After the game 
 - <strong>Python</strong> programming language.
 - <strong>Git hub</strong> for version control and host: https://omurilolima.github.io/quizz-game/  
 - <strong>Gitpod</strong> for coding: https://gitpod.io/ 
+- <strong>Heroku<strong> to deploy the live site: https://www.heroku.com/ 
 - <strong>Google Sheets</strong> to store the list of words
 - <strong>Google cloud</strong> was used to enable the APIs needed for this project.
 - <strong>Google Drive</strong> and <strong>Notion</strong> for documenting.
@@ -115,9 +116,9 @@ The live project can be found here - https://python-hangman.herokuapp.com/
 ### How to commit and push changes
 
 To commit and push changes you need to follow these steps:
-1. Run the "git add ." command on the terminal to add a change in the working directory to the staging area.
-2. Run the "git commit" command on the terminal and add a message to help indentifing what this commit is about.
-3. Run the "git push" command on the terminal to upload local repository content to a remote repository. Note that any new commits to the main branch will automatically update the site.
+1. Run the `git add .` command on the terminal to add a change in the working directory to the staging area.
+2. Run the `git commit` command on the terminal and add a message to help indentifing what this commit is about.
+3. Run the `git push` command on the terminal to upload local repository content to a remote repository. Note that any new commits to the main branch will automatically update the site.
 
 ### Heroku Deployment
 This project uses Heroku, a platform as a service (PaaS) that enables developers to build, run, and operate backend applications on cloud.
@@ -150,10 +151,6 @@ For Heroku deployment, follow these steps to connect your GitHub repository to t
 In addition to the knowledge acquired in the [Professional Academy Diploma in Full Stack Software Development](https://www.ucd.ie/professionalacademy/findyourcourse/professional_diploma_in_software_development/) by [University College Dublin](https://www.ucd.ie/) and [Code Institute](https://codeinstitute.net/ie/), I also used the following sources to deal with specific points of this project:
 
 - How to Print Colors in Python terminal: [Tutorial by GeekForGeeks](https://www.geeksforgeeks.org/print-colors-python-terminal/)
-
-- Custom alert by [sweetalert2](https://sweetalert2.github.io/#configuration)
-- How to [Shuffle an array](https://javascript.info/task/shuffle)
-- How to [Perform Page Reload/Refresh in JavaScript When a Button is Clicked](https://www.freecodecamp.org/news/refresh-the-page-in-javascript-js-reload-window-tutorial/)
 
 ### Content
 
