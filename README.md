@@ -1,13 +1,14 @@
 # Quizz Game
 
-[View deployed site here](https://python-hangman.herokuapp.com/)
+[View deployed game here](https://python-hangman.herokuapp.com/)
 
 ## Introduction
 
-This project is a command-line application, build in Python and is deployed on Heroku using Code Institute's mock terminal template.
+This project is a command-line application, build in Python and is deployed on Heroku using Code Institute's [mock terminal template](https://github.com/Code-Institute-Org/python-essentials-template).
 
 ### Game mechanics
 The player informs his name before starting the game. After this, the first word is presented (in a dashed format) and the user begins to guess letters until either the word is completely found or they run out of attempts. The guess should be a single roman letter. If not, print an error message and give them another chance to enter a letter. The number of attempts is determined by the length of the word plus 3.
+
 If the player guesses all the correct letters they gain 1 point. After the game is finished the player is given the choice to either play again or exit the game and the player can play the game until they found all 32 words.
 
 
@@ -154,15 +155,14 @@ In addition to the knowledge acquired in the [Professional Academy Diploma in Fu
 - How to [Shuffle an array](https://javascript.info/task/shuffle)
 - How to [Perform Page Reload/Refresh in JavaScript When a Button is Clicked](https://www.freecodecamp.org/news/refresh-the-page-in-javascript-js-reload-window-tutorial/)
 
-
 ### Content
 
 - Content by Murilo Lima
 
 ### Acknowledgments
 
-- This project was inspired by my own experience of building digital products for tech companies as a Product Manager / Product Owner for more than 10 years.
-- Python Hangman by <strong>Adam Gilroy<strong> was used as a benchmark: https://github.com/adamgilroy22/python-hangman
+- This project was inspired by my own experience of building digital products for tech companies as a Product Owner for the past 12 years.
+- Python Hangman by <strong>Adam Gilroy</strong> was used as a benchmark: https://github.com/adamgilroy22/python-hangman
 - Special thanks to my menthor <strong>Brian Macharia<strong>.
 
 ## Disclaimer
