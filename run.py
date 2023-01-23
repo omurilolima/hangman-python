@@ -26,9 +26,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman-python')
 
-leaderboard = SHEET.worksheet('leaderboard')
-data = leaderboard.get_all_values()
-
 words_bank = SHEET.worksheet('words')
 WORDS = words_bank.get_all_values()
 
