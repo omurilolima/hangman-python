@@ -1,4 +1,4 @@
-# Quizz Game
+# Hangman Python
 
 [View deployed game here](https://python-hangman.herokuapp.com/)
 
